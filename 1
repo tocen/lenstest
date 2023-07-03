@@ -1,0 +1,43 @@
+import java.math.BigDecimal;
+
+public class EthAddress {
+    private String address;
+    private BigDecimal balance;
+
+    public EthAddress(String address, BigDecimal balance) {
+        this.address = address;
+        this.balance = balance;
+    }
+
+    public void deposit(BigDecimal amount) {
+        balance = balance.add(amount);
+        System.out.println("Deposited " + amount + " ETH to address " + address);
+    }
+
+    public void withdraw(BigDecimal amount) {
+        if (balance.compareTo(amount) >= 0) {
+            balance = balance.subtract(amount);
+            System.out.println("Withdrawn " + amount + " ETH from address " + address);
+        } else {
+            System.out.println("Insufficient balance in address " + address);
+        }
+    }
+
+    public void displayBalance() {
+        System.out.println("Address " + address + " has a balance of " + balance + " ETH");
+    }
+
+    public static void main(String[] args) {
+        EthAddress ethAddress = new EthAddress("0x1234567890abcdef", BigDecimal.ZERO);
+        ethAddress.displayBalance();
+
+        ethAddress.deposit(new BigDecimal("10.5"));
+        ethAddress.displayBalance();
+
+        ethAddress.withdraw(new BigDecimal("5.5"));
+        ethAddress.displayBalance();
+
+        ethAddress.withdraw(new BigDecimal("10.5"));
+        ethAddress.displayBalance();
+    }
+}
